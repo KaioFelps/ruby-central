@@ -33,12 +33,37 @@ export const NavigationListWrapper = styled("ul", {
     },
 })
 
+export const MobileMenuTrigger = styled("button", {
+    all: "unset",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 4,
+    borderRadius: 999,
+    color: "$blue-500",
+    background: "$gray-300",
+
+    "@lg": {
+        display: "none",
+    },
+})
+
 export const HeaderContainer = styled("div", {
-    width: "100%",
+    width: "calc(100% - 40px)",
     maxWidth: 1264,
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+
+    "@sm": {
+        nav: {
+            display: "none",
+        }
+    },
+
+    img: {
+        userSelect: "none",
+    }
 })
 
 export const HeaderWrapper = styled("header", {

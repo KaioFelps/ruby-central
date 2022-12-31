@@ -29,5 +29,11 @@ export const {
             md: "1rem",
             sm: "0.875rem",
         },
-    }
+    },
+    media: {
+        lg: "(min-width: 768px)",
+        md: "(max-width: 1263px)",
+        sm: "(max-width: 768px)",
+        xs: "(max-width: 375px)",
+    },
 })
