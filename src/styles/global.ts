@@ -1,6 +1,6 @@
 import { globalCss } from ".";
 
-export const GlobalCss = globalCss({
+export const GlobalStyles = globalCss({
     "*": {
         boxSizing: "border-box",
         padding: 0,

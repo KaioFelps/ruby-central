@@ -19,10 +19,10 @@ export const {
             "blue-300": "#E0F0FF",
             
             "gray-700": "#4F5166",
-            "gray-500": "#85868F",
-            "gray-300": "#F2F2F3",
-            "gray-200": "#F7F7FA",
-            "gray-100": "#EAEAEA",
+            "gray-400": "#85868F",
+            "gray-300": "#EAEAEA",
+            "gray-200": "#F2F2F3",
+            "gray-100": "#F7F7FA",
         },
         fontSizes: {
             lg: "1.5rem",
