@@ -74,4 +74,5 @@ export const HeaderWrapper = styled("header", {
     justifyContent: "center",
     padding: "20px 0",
     background: "$gray-100",
+    marginBottom: "3.5rem",
 })

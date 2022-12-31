@@ -12,4 +12,10 @@ export const GlobalStyles = globalCss({
         fontFamily: "Roboto, system-ui, sans-serif",
         background: "$gray-200",
     },
+
+    h1: {
+        fontWeight: "bold",
+        fontSize: "$xl",
+        color: "$black",
+    },
 })

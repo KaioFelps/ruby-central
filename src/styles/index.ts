@@ -25,13 +25,14 @@ export const {
             "gray-100": "#F7F7FA",
         },
         fontSizes: {
-            lg: "1.5rem",
+            xl: "1.5rem",
+            lg: "1.1rem",
             md: "1rem",
             sm: "0.875rem",
         },
     },
     media: {
-        lg: "(min-width: 768px)",
+        lg: "(min-width: 769px)",
         md: "(max-width: 1263px)",
         sm: "(max-width: 768px)",
         xs: "(max-width: 375px)",
