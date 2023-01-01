@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import { GroupsContainer, Hero, MainContainer, RoomCard, RoomColumn, RoomInfos, RoomOwner, RoomsContainer, RoomsFlexWrapper } from '../styles/pages'
+import { ChipsFlexRow, GroupCard, GroupChip, GroupColumn, GroupsContainer, GroupsFlexWrapper, Hero, MainContainer, RoomCard, RoomColumn, RoomInfos, RoomOwner, RoomsContainer, RoomsFlexWrapper } from '../styles/pages'
 import { Summary } from './components/Summary'
 
 import quartopadrao from "../assets/quarto-padrao.png"
@@ -18,11 +18,20 @@ type popularRoomType = {
   createdAt: number;
 }
 
-type HomeProps = {
-  popularRooms: popularRoomType[]
+type newGroupsProps = {
+  groupName: string;
+  groupPic: string;
+  membersAmount: number;
+  owner: string;
+  createdAt: number;
 }
 
-export default function Home({popularRooms}: HomeProps) {
+type HomeProps = {
+  popularRooms: popularRoomType[];
+  newGroups: newGroupsProps[]
+}
+
+export default function Home({popularRooms, newGroups}: HomeProps) {
   return (
     <>
       <Head>
@@ -42,10 +51,9 @@ export default function Home({popularRooms}: HomeProps) {
           <RoomsFlexWrapper>
             {popularRooms.map((room: popularRoomType) => {
 
-            console.log(room.ownerVisual)
               return (
                 <RoomCard key={room.createdAt}>
-                  <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt="quarto não possui papel de fundo" width={110} height={110} />
+                  <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} width={110} height={110} />
 
                   <RoomColumn>
                     <RoomInfos>
@@ -66,6 +74,26 @@ export default function Home({popularRooms}: HomeProps) {
 
         <GroupsContainer>
           <h2>Últimos grupos</h2>
+
+          <GroupsFlexWrapper>
+            {newGroups.map(group => {
+              return (
+                <GroupCard key={group.createdAt}>
+                  <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" width={64} height={64} />
+
+                  <GroupColumn>
+                    <strong>{group.groupName}</strong>
+
+                    <ChipsFlexRow>
+                      <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
+                      <GroupChip>{group.owner}</GroupChip>
+                      <GroupChip>{new Date(group.createdAt).toLocaleString("pt-br")}</GroupChip>
+                    </ChipsFlexRow>
+                  </GroupColumn>
+                </GroupCard>
+              )
+            })}
+          </GroupsFlexWrapper>
         </GroupsContainer>
       </MainContainer>
     </>
@@ -73,17 +101,19 @@ export default function Home({popularRooms}: HomeProps) {
 }
 
 export const getStaticProps:GetStaticProps = async () => {
-  const request = await fetch("https://api.rubyhotel.city/api/rooms?paginationLimit=5&order=visitors", {
+
+  // get popular room datas
+  const roomsRequest = await fetch("https://api.rubyhotel.city/api/rooms?paginationLimit=5&order=visitors", {
     method: "GET",
     headers: {
       "content-type": "application/json",
       "Authorization": "Bearer " + process.env.API_BEARER_TOKEN
     }
   })
-  const response = await request.json()
-  const data = await response.response.data
+  const roomsResponse = await roomsRequest.json()
+  const roomsData = await roomsResponse.response.data
 
-  const popularRooms = data.map((room: any) => {
+  const popularRooms = roomsData.map((room: any) => {
     return {
       roomName: room.name,
       roomPic: room.thumbnail,
@@ -94,10 +124,34 @@ export const getStaticProps:GetStaticProps = async () => {
     } as popularRoomType
   })
 
+
+  // get latest groups datas
+  const groupsRequest = await fetch("https://api.rubyhotel.city/api/groups?paginationLimit=5", {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      "Authorization": "Bearer " + process.env.API_BEARER_TOKEN,
+    }
+  })
+
+  const groupsResponse = await groupsRequest.json()
+  const groupsData = await groupsResponse.response.data
+
+  const newGroups = groupsData.map((group:any) => {
+    return {
+      groupName: group.name,
+      createdAt: group.created_at,
+      groupPic: group.badge_code,
+      membersAmount: group.members_count,
+      owner: group.owner.name,
+    } as newGroupsProps
+  })
+
   return {
     props: {
       popularRooms,
+      newGroups,
     },
-    revalidate: 60 * 10 // 5 minutos
+    revalidate: 60 * 10 // 10 minutos
   }
 }
