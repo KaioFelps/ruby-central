@@ -17,6 +17,7 @@ export const {
 
             "blue-500": "#0066FF",
             "blue-300": "#E0F0FF",
+            "blue-100": "#0066ff2b",
             
             "gray-700": "#4F5166",
             "gray-400": "#85868F",

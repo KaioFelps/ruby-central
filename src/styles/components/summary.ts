@@ -75,6 +75,6 @@ export const SeeMoreAnchor = styled(NavLink, {
     },
 
     "&:focus": {
-        outline: "solid 3px #0066ff2b",
+        outline: "solid 3px $blue-100",
     }
 })
