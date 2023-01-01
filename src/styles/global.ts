@@ -18,4 +18,10 @@ export const GlobalStyles = globalCss({
         fontSize: "$xl",
         color: "$black",
     },
+
+    h2: {
+        fontWeight: "bold",
+        fontSize: "$lg",
+        color: "$black",
+    }
 })
