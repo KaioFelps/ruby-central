@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { InfosCol, SeeMoreAnchor, SummariesContainer, SummaryCard, SummaryRow } from "../styles/components/summary";
 
-import caixa from "../../assets/caixa.png"
-import anonimo from "../../assets/anonimo.png"
-import emblema from "../../assets/emblema.png"
+import caixa from "../assets/caixa.png"
+import anonimo from "../assets/anonimo.png"
+import emblema from "../assets/emblema.png"
 import { ArrowSquareOut } from "phosphor-react";
 
 export function Summary() {
