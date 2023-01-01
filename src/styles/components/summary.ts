@@ -1,5 +1,5 @@
 import { styled } from ".."
-import NavLink from "../../pages/components/NavLink"
+import NavLink from "../../components/NavLink"
 
 export const SummariesContainer = styled("div", {
     display: "flex",

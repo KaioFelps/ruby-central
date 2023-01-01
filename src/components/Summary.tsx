@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { InfosCol, SeeMoreAnchor, SummariesContainer, SummaryCard, SummaryRow } from "../../styles/components/summary";
+import { InfosCol, SeeMoreAnchor, SummariesContainer, SummaryCard, SummaryRow } from "../styles/components/summary";
 
 import caixa from "../../assets/caixa.png"
 import anonimo from "../../assets/anonimo.png"

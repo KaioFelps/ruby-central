@@ -1,14 +1,14 @@
-import { HeaderContainer, HeaderWrapper, MobileMenuTrigger, NavigationListWrapper } from "../../styles/components/header";
+import { HeaderContainer, HeaderWrapper, MobileMenuTrigger, NavigationListWrapper } from "../styles/components/header";
 import { Armchair, House, ImageSquare, User } from "phosphor-react";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
 import Image from "next/image";
 import logo from "../../assets/logo.png"
 import shortLogo from "../../assets/short-logo.png"
-import { Bars } from "../../assets/icons/bars";
+import { Bars } from "../assets/icons/bars";
 import { MobileNavigation } from "./MobileNavigation";
 
-export default function Header() {
+export function Header() {
     const { asPath } = useRouter()
     return (
         <HeaderWrapper>

@@ -1,4 +1,4 @@
-import { FooterContainer } from "../../styles/components/footer";
+import { FooterContainer } from "../styles/components/footer";
 
 export function Footer() {
     return (

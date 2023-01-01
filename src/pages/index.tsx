@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import { ChipsFlexRow, GroupCard, GroupChip, GroupColumn, GroupsContainer, GroupsFlexWrapper, Hero, MainContainer, RoomCard, RoomColumn, RoomInfos, RoomOwner, RoomsContainer, RoomsFlexWrapper } from '../styles/pages'
-import { Summary } from './components/Summary'
+import { Summary } from '../components/Summary'
 
 import quartopadrao from "../assets/quarto-padrao.png"
 import Image from 'next/image'

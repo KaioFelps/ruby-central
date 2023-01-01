@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { Times } from "../../assets/icons/times";
-import { DialogClose, DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger, MobileNavWrapper } from "../../styles/components/mobileNavigation";
+import { Times } from "../assets/icons/times";
+import { DialogClose, DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger, MobileNavWrapper } from "../styles/components/mobileNavigation";
 import NavLink from "./NavLink";
 import { Armchair, House, ImageSquare, User } from "phosphor-react";
 
