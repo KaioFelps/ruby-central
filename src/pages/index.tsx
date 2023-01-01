@@ -87,7 +87,11 @@ export default function Home({popularRooms, newGroups}: HomeProps) {
                     <ChipsFlexRow>
                       <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
                       <GroupChip>{group.owner}</GroupChip>
-                      <GroupChip>{new Date(group.createdAt).toLocaleString("pt-br")}</GroupChip>
+                      <GroupChip>{new Date(group.createdAt).toLocaleString("pt-br", {
+                        month: "numeric",
+                        day: "numeric",
+                        year: "numeric",
+                      })}</GroupChip>
                     </ChipsFlexRow>
                   </GroupColumn>
                 </GroupCard>

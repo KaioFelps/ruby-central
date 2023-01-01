@@ -55,10 +55,19 @@ export const RoomCard = styled("article", {
         objectPosition: "center",
         borderRadius: 4,
         boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.15)",
+
+        "@xs": {
+            margin: "auto",
+        }
     },
+
+    "@xs": {
+        flexDirection: "column",
+    }
 })
 
 export const RoomColumn = styled("div", {
+    flex: 1,
     display: "flex",
     flexDirection: "column",
     gap: 12,
@@ -98,6 +107,10 @@ export const GroupsContainer = styled("section", {
 
     h2: {
         marginBottom: 16,
+    },
+
+    "@sm": {
+        marginTop: "5rem",
     }
 })
 
@@ -140,6 +153,10 @@ export const GroupColumn = styled("div", {
 export const ChipsFlexRow = styled("div", {
     display: "flex",
     gap: 6,
+
+    "@xs": {
+        flexDirection: "column",
+    }
 })
 
 export const GroupChip = styled("span", {

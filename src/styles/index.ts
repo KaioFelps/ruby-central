@@ -35,6 +35,6 @@ export const {
         lg: "(min-width: 769px)",
         md: "(max-width: 1263px)",
         sm: "(max-width: 768px)",
-        xs: "(max-width: 375px)",
+        xs: "(max-width: 480px)",
     },
 })
