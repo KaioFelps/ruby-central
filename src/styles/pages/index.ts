@@ -27,7 +27,7 @@ export const Hero = styled("section", {
 export const RoomsContainer = styled("section", {
     gridArea: "rooms",
 
-    h2: {
+    h3: {
         marginBottom: 16,
     },
 })
@@ -105,7 +105,7 @@ export const RoomOwner = styled("div", {
 export const GroupsContainer = styled("section", {
     gridArea: "groups",
 
-    h2: {
+    h3: {
         marginBottom: 16,
     },
 

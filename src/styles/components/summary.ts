@@ -45,7 +45,7 @@ export const InfosCol = styled("div", {
         color: "$gray-400",
     },
 
-    h3: {
+    h2: {
         fontWeight: "bold",
         fontSiez: "$lg",
     }

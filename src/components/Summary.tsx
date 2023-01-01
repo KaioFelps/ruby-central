@@ -6,15 +6,21 @@ import anonimo from "../assets/anonimo.png"
 import emblema from "../assets/emblema.png"
 import { ArrowSquareOut } from "phosphor-react";
 
-export function Summary() {
+type SummaryProps = {
+    onlineUsers: number;
+    hostedFurnis: number;
+    badgesAmount: number;
+}
+
+export function Summary({ badgesAmount, hostedFurnis, onlineUsers }: SummaryProps) {
     return (
         <SummariesContainer>
             <SummaryCard>
                 <SummaryRow>
-                    <Image src={caixa} alt="" unoptimized={true} />
+                    <Image src={caixa} alt="uma caixa aberta pixelada" title="Mobílias" unoptimized={true} />
                     <InfosCol>
                         <p>Móveis hospedados</p>
-                        <h3>1253</h3>
+                        <h2>{hostedFurnis}</h2>
                     </InfosCol>
                 </SummaryRow>
                 <SeeMoreAnchor href="/mobis">
@@ -24,10 +30,10 @@ export function Summary() {
             
             <SummaryCard>
                 <SummaryRow>
-                    <Image src={anonimo} alt="" unoptimized={true} />
+                    <Image src={anonimo} alt="um saco de papel pixelado" title="Usuários" unoptimized={true} />
                     <InfosCol>
                         <p>Usuários online</p>
-                        <h3>1253</h3>
+                        <h2>{onlineUsers}</h2>
                     </InfosCol>
                 </SummaryRow>
                 <SeeMoreAnchor href="/users">
@@ -36,10 +42,10 @@ export function Summary() {
             </SummaryCard>
             <SummaryCard>
                 <SummaryRow>
-                    <Image src={emblema} alt="" unoptimized={true} />
+                    <Image src={emblema} alt="uma insígnia amarela e laranja" title="Emblemas" unoptimized={true} />
                     <InfosCol>
                         <p>Emblemas hospedados</p>
-                        <h3>1253</h3>
+                        <h2>{badgesAmount}</h2>
                     </InfosCol>
                 </SummaryRow>
                 <SeeMoreAnchor href="/emblemas">

@@ -28,10 +28,13 @@ type newGroupsProps = {
 
 type HomeProps = {
   popularRooms: popularRoomType[];
-  newGroups: newGroupsProps[]
+  newGroups: newGroupsProps[];
+  onlineUsers: number;
+  hostedFurnis: number;
+  badgesAmount: number;
 }
 
-export default function Home({popularRooms, newGroups}: HomeProps) {
+export default function Home({ popularRooms, newGroups, badgesAmount, hostedFurnis, onlineUsers }: HomeProps) {
   return (
     <>
       <Head>
@@ -41,19 +44,19 @@ export default function Home({popularRooms, newGroups}: HomeProps) {
       </Head>
       <MainContainer>
         <Hero>
-          <h1>Overview</h1>
-          <Summary />
+          <h1>Overview do Ruby Hotel</h1>
+          <Summary badgesAmount={badgesAmount} hostedFurnis={hostedFurnis} onlineUsers={onlineUsers} />
         </Hero>
 
         <RoomsContainer>
-          <h2>Quartos mais populares</h2>
+          <h3>Quartos mais populares</h3>
 
           <RoomsFlexWrapper>
             {popularRooms.map((room: popularRoomType) => {
 
               return (
                 <RoomCard key={room.createdAt}>
-                  <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} width={110} height={110} />
+                  <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} title="Capa do quarto" width={110} height={110} />
 
                   <RoomColumn>
                     <RoomInfos>
@@ -62,7 +65,7 @@ export default function Home({popularRooms, newGroups}: HomeProps) {
                     </RoomInfos>
 
                     <RoomOwner>
-                      <Image src={`https://imager.rubyhotel.city/?&figure=${room.ownerVisual}&direction=3&head_direction=3&gesture=sml&size=sm&headonly=1`} alt="quarto não possui papel de fundo" width={56} height={56} unoptimized={true} />
+                      <Image src={`https://imager.rubyhotel.city/?&figure=${room.ownerVisual}&direction=3&head_direction=3&gesture=sml&size=sm&headonly=1`} alt="quarto não possui papel de fundo" title={`Rosto do usuário ${room.owner}`} width={56} height={56} unoptimized={true} />
                       <span>{room.owner}</span>
                     </RoomOwner>
                   </RoomColumn>
@@ -73,13 +76,13 @@ export default function Home({popularRooms, newGroups}: HomeProps) {
         </RoomsContainer>
 
         <GroupsContainer>
-          <h2>Últimos grupos</h2>
+          <h3>Últimos grupos</h3>
 
           <GroupsFlexWrapper>
             {newGroups.map(group => {
               return (
                 <GroupCard key={group.createdAt}>
-                  <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" width={64} height={64} />
+                  <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" title="Emblema do grupo" width={64} height={64} />
 
                   <GroupColumn>
                     <strong>{group.groupName}</strong>
@@ -87,7 +90,7 @@ export default function Home({popularRooms, newGroups}: HomeProps) {
                     <ChipsFlexRow>
                       <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
                       <GroupChip>{group.owner}</GroupChip>
-                      <GroupChip>{new Date(group.createdAt).toLocaleString("pt-br", {
+                      <GroupChip>{(new Date(group.createdAt * 1000)).toLocaleString("pt-br", {
                         month: "numeric",
                         day: "numeric",
                         year: "numeric",
@@ -107,7 +110,7 @@ export default function Home({popularRooms, newGroups}: HomeProps) {
 export const getStaticProps:GetStaticProps = async () => {
 
   // get popular room datas
-  const roomsRequest = await fetch("https://api.rubyhotel.city/api/rooms?paginationLimit=5&order=visitors", {
+  const roomsRequest = await fetch("https://api.rubyhotel.city/api/rooms?paginationLimit=6&order=visitors", {
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -130,7 +133,7 @@ export const getStaticProps:GetStaticProps = async () => {
 
 
   // get latest groups datas
-  const groupsRequest = await fetch("https://api.rubyhotel.city/api/groups?paginationLimit=5", {
+  const groupsRequest = await fetch("https://api.rubyhotel.city/api/groups?paginationLimit=10", {
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -150,11 +153,27 @@ export const getStaticProps:GetStaticProps = async () => {
       owner: group.owner.name,
     } as newGroupsProps
   })
+  
+
+  // statistics
+  const statisticsRequest = await fetch("https://api.rubyhotel.city/api/ruby/statistics", {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      "authorization": "Bearer " + process.env.API_BEARER_TOKEN,
+    }
+  })
+
+  const statisticsResponse = await statisticsRequest.json()
+  const { onlines_count, furniture_count, badges_count } = statisticsResponse.response
 
   return {
     props: {
       popularRooms,
       newGroups,
+      onlineUsers: onlines_count,
+      hostedFurnis: furniture_count,
+      badgesAmount: badges_count,
     },
     revalidate: 60 * 10 // 10 minutos
   }

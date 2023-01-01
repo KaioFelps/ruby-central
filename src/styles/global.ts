@@ -19,7 +19,7 @@ export const GlobalStyles = globalCss({
         color: "$black",
     },
 
-    h2: {
+    "h2, h3": {
         fontWeight: "bold",
         fontSize: "$lg",
         color: "$black",
