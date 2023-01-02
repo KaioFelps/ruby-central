@@ -1,4 +1,5 @@
 import { globalCss, styled } from ".";
+import { Button } from "primereact/button";
 
 export const GlobalStyles = globalCss({
     "*": {
@@ -56,5 +57,22 @@ export const StyledLabel = styled("label", {
     "&:has(input:focus)": {
         boxShadow: "none",
         outline: "2px solid $blue-100",
+    }
+})
+
+export const StyledButton = styled(Button, {
+    "&.p-button": {
+        border: 0,
+        padding: 16,
+        background: "$blue-500",
+        borderRadius: 8,
+        fontSize: "$sm",
+        fontWeight: "bold",
+        height: "auto",
+        position: "relative",
+
+        "&:focus": {
+            boxShadow: "0 0 0 0.2rem var(--colors-blue-100)",
+        },
     }
 })

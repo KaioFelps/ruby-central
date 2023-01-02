@@ -1,3 +1,5 @@
+import { wrap } from "module";
+import Image from "next/image";
 import { styled } from "..";
 
 export const MainContainer = styled("main", {
@@ -11,24 +13,41 @@ export const BadgesHeader = styled("header", {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+
+    marginBottom: 80,
 })
 
-export const BinocularsButton = styled("button", {
-    all: "unset",
-    lineHeight: 0,
-    borderRadius: 999,
-    padding: 2,
+export const Form = styled("form", {
+    display: "flex",
+    gap: 12,
+    alignItems: "stretch",
+})
+
+export const ResultWrapper = styled("div", {
+    maxWidth: 784,
+    margin: "auto",
+})
+
+export const BadgesContainer = styled("section", {
+    marginTop: 16,
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 16,
+})
+
+export const Badge = styled(Image, {
+    boxSizing: "content-box",
+    padding: 12,
     background: "$white",
+    boxShadow: "inset 0 0 0 2px rgba(0, 0, 0, 0.15)",
+    borderRadius: 6,
+})
 
-    "&:hover": {
-        background: "$gray-300",
-    },
-    
-    ":active": {
-        filter: "brightness(0.9)",
-    },
+export const BadgesFooter = styled("footer", {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
 
-    "&:focus": {
-        outline: "2px solid $blue-100",
-    }
+    marginTop: 48,
 })
