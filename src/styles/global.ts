@@ -57,7 +57,15 @@ export const StyledLabel = styled("label", {
     "&:has(input:focus)": {
         boxShadow: "none",
         outline: "2px solid $blue-100",
-    }
+    },
+
+    "@sm": {
+        width: "auto",
+
+        "@supports(width: -webkit-fill-available)": {
+            width: "-webkit-fill-available",
+        },
+    },
 })
 
 export const StyledButton = styled(Button, {
@@ -70,6 +78,11 @@ export const StyledButton = styled(Button, {
         fontWeight: "bold",
         height: "auto",
         position: "relative",
+        boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.1)",
+
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
 
         "&:focus": {
             boxShadow: "0 0 0 0.2rem var(--colors-blue-100)",

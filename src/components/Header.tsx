@@ -29,7 +29,7 @@ export function Header() {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink href={"/emblemas"} aria-label="Emblemas">
+                            <NavLink href={"/emblemas"} aria-label="Emblemas" exact={false}>
                                 <ImageSquare size={32} weight={asPath === "/emblemas" ? "fill" : "regular"} />
                             </NavLink>
                         </li>
