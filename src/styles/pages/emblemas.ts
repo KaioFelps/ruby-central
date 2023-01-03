@@ -96,6 +96,7 @@ export const NothingFoundWarning = styled("span", {
 
 export const BadgeParagraph = styled("p", {
     fontSize: "$sm",
+    maxWidth: "100%",
 
     "&:not(:last-child)": {
         marginBottom: 8,

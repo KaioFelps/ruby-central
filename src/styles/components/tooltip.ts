@@ -31,4 +31,6 @@ export const TooltipContent = styled(PrimitiveTooltip.Content, {
     border: "1px solid rgba(0, 0, 0, 0.15)",
     borderRadius: 8,
     boxShadow: "0px 2px 0px rgba(0, 0, 0, 0.05)",
+
+    maxWidth: "calc(100vw - 20px)",
 })
