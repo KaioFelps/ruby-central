@@ -5,7 +5,7 @@ import { Summary } from '../components/Summary'
 
 import quartopadrao from "../assets/quarto-padrao.png"
 import Image from 'next/image'
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { GetStaticProps } from 'next'
 import ErrorBoundary from '../components/ErrorBoundary'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -35,7 +35,7 @@ type HomeProps = {
   badgesAmount: number;
 }
 
-export default function Home({ popularRooms = [], newGroups = [], badgesAmount, hostedFurnis, onlineUsers }: HomeProps) {
+export default function Home({ popularRooms = [], newGroups = [], badgesAmount = 0, hostedFurnis = 0, onlineUsers = 0 }: HomeProps) {
   return (
     <>
       <Head>
@@ -152,7 +152,7 @@ export const getStaticProps:GetStaticProps = async () => {
   const groupsResponse = await groupsRequest.json()
   const groupsData = await groupsResponse.response.data
 
-  let newGroups = groupsData.map((group:any) => {
+  let newGroups = groupsData.map((group: any) => {
     return {
       groupName: group.name,
       createdAt: group.created_at,
