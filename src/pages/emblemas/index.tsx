@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { PaginationArrows, PaginationContainer, PaginationDivisor, PaginationLink, PaginationLinkWrapper } from "../../styles/components/pagination";
 import Tooltip from "../../components/Tooltip";
+import Head from "next/head";
 
 type BadgeType = {
     title: string;
@@ -137,102 +138,109 @@ export default function Emblemas({badges, currentPage, total, totalPages}: Emble
     }, [events])
 
     return (
-        <MainContainer>
-            <BadgesHeader>
-                <h1>Scanner de emblemas</h1>
+        <>
+            <Head>
+                <title>Scanner de emblemas • Ruby Center Api</title>
+                <meta name="description" content="Confira todos os emblemas hospedados no Ruby Hotel." />
+                <link rel='canonical' href='/emblemas' />
+            </Head>
+            <MainContainer>
+                <BadgesHeader>
+                    <h1>Scanner de emblemas</h1>
 
-                <Form onSubmit={handleFormSubmit}>
-                    <StyledLabel css={{"$$width": "320px"}}>
-                        <Binoculars size={24} weight="light" />
-                        <input ref={inputRef} type="text" name="query" id="query" placeholder="Pesquise um código, nome ou descrição!"/>
-                    </StyledLabel>
-                    <StyledButton
-                        aria-label="Realizar busca de emblemas com as informações fornecidas."
-                        type="submit"
-                        loading={isSearching}
-                    >
-                        Buscar
-                    </StyledButton>
-                </Form>
-            </BadgesHeader>
+                    <Form onSubmit={handleFormSubmit}>
+                        <StyledLabel css={{"$$width": "320px"}}>
+                            <Binoculars size={24} weight="light" />
+                            <input ref={inputRef} type="text" name="query" id="query" placeholder="Pesquise um código, nome ou descrição!"/>
+                        </StyledLabel>
+                        <StyledButton
+                            aria-label="Realizar busca de emblemas com as informações fornecidas."
+                            type="submit"
+                            loading={isSearching}
+                        >
+                            Buscar
+                        </StyledButton>
+                    </Form>
+                </BadgesHeader>
 
-            <ResultWrapper>
-                <h2>Resultado da busca</h2>
-                <BadgesContainer>
-                    {
-                        badges.length !== 0 ?
-                        badges.map(badge => {
-                            return (
-                                <Tooltip
-                                    content={ <>
-                                        <BadgeParagraph><strong>Título:</strong> {badge.title}</BadgeParagraph>
-                                        <BadgeParagraph><strong>Descrição:</strong> {badge.description}</BadgeParagraph>
-                                        <BadgeParagraph><strong>Código:</strong> {badge.code}</BadgeParagraph>
+                <ResultWrapper>
+                    <h2>Resultado da busca</h2>
+                    <BadgesContainer>
+                        {
+                            badges.length !== 0 ?
+                            badges.map(badge => {
+                                return (
+                                    <Tooltip
+                                        content={ <>
+                                            <BadgeParagraph><strong>Título:</strong> {badge.title}</BadgeParagraph>
+                                            <BadgeParagraph><strong>Descrição:</strong> {badge.description}</BadgeParagraph>
+                                            <BadgeParagraph><strong>Código:</strong> {badge.code}</BadgeParagraph>
 
-                                        <BadgeLink href="">Clique para ver quem tem o emblema</BadgeLink>
-                                    </> }
-                                    key={badge.code + badge.title}
-                                    asChild={true}
-                                >
-                                    <BadgeToolTipTrigger type="button" aria-label="ver mais informações sobre o emblema">
-                                        <Badge src={`https://rubyhotel.city/apifiles/badges/${badge.code}`} alt="" width={40} height={40} unoptimized={true} />
-                                    </BadgeToolTipTrigger>
-                                </Tooltip>
-                            )
-                        }) :
-                        <NothingFoundWarning>Nada foi encontra do</NothingFoundWarning>
-                    }
-                </BadgesContainer>
+                                            <BadgeLink href="">Clique para ver quem tem o emblema</BadgeLink>
+                                        </> }
+                                        key={badge.code + badge.title}
+                                        asChild={true}
+                                    >
+                                        <BadgeToolTipTrigger type="button" aria-label="ver mais informações sobre o emblema">
+                                            <Badge src={`https://rubyhotel.city/apifiles/badges/${badge.code}`} alt="" width={40} height={40} unoptimized={true} />
+                                        </BadgeToolTipTrigger>
+                                    </Tooltip>
+                                )
+                            }) :
+                            <NothingFoundWarning>Nada foi encontra do</NothingFoundWarning>
+                        }
+                    </BadgesContainer>
 
-            </ResultWrapper>
+                </ResultWrapper>
 
-            <BadgesFooter>
-                <p>Vistos {badgesAmountFromTotal} de {total} resultados.</p>
+                <BadgesFooter>
+                    <p>Vistos {badgesAmountFromTotal} de {total} resultados.</p>
 
-                <PaginationContainer>
-                    <PaginationArrows
-                        onClick={paginationControls.prev}
-                        aria-label="ir para a página anterior"
-                        disabled={currentPage <= 1 || isChangingPage}
-                    >
-                        <CaretLeft size={16} weight="bold" />
-                    </PaginationArrows>
+                    <PaginationContainer>
+                        <PaginationArrows
+                            onClick={paginationControls.prev}
+                            aria-label="ir para a página anterior"
+                            disabled={currentPage <= 1 || isChangingPage}
+                        >
+                            <CaretLeft size={16} weight="bold" />
+                        </PaginationArrows>
 
-                    <PaginationLinkWrapper>
+                        <PaginationLinkWrapper>
 
-                        {/* link para primeira página */}
-                        {isFirstPageVisible === false && <>
-                            <PaginationLink href={`${changePagePath}1`}>1</PaginationLink>
-                            <PaginationDivisor>...</PaginationDivisor>
-                        </>}
+                            {/* link para primeira página */}
+                            {isFirstPageVisible === false && <>
+                                <PaginationLink href={`${changePagePath}1`}>1</PaginationLink>
+                                <PaginationDivisor>...</PaginationDivisor>
+                            </>}
 
-                        {/* 5 links de navegação */}
+                            {/* 5 links de navegação */}
 
-                        {calculatedPages.map((page: number) => {
-                            if(page === currentPage) {
-                                return <PaginationLink key={page} className="active" href={`${changePagePath}${page}`}>{page}</PaginationLink>
-                            }
-                            return <PaginationLink key={page} href={`${changePagePath}${page}`}>{page}</PaginationLink>
-                        })}
+                            {calculatedPages.map((page: number) => {
+                                if(page === currentPage) {
+                                    return <PaginationLink key={page} className="active" href={`${changePagePath}${page}`}>{page}</PaginationLink>
+                                }
+                                return <PaginationLink key={page} href={`${changePagePath}${page}`}>{page}</PaginationLink>
+                            })}
 
-                        {/* link para a última página */}
-                        {isLastPageVisible === false && <>
-                            <PaginationDivisor>...</PaginationDivisor>
-                            <PaginationLink href={`${changePagePath}${totalPages}`}>{totalPages}</PaginationLink>
-                        </>}
+                            {/* link para a última página */}
+                            {isLastPageVisible === false && <>
+                                <PaginationDivisor>...</PaginationDivisor>
+                                <PaginationLink href={`${changePagePath}${totalPages}`}>{totalPages}</PaginationLink>
+                            </>}
 
-                    </PaginationLinkWrapper>
+                        </PaginationLinkWrapper>
 
-                    <PaginationArrows
-                        onClick={paginationControls.next}
-                        aria-label="ir para a próxima página"
-                        disabled={currentPage === totalPages || isChangingPage}
-                    >
-                        <CaretRight size={16} weight="bold" />
-                    </PaginationArrows>
-                </PaginationContainer>
-            </BadgesFooter>
-        </MainContainer>
+                        <PaginationArrows
+                            onClick={paginationControls.next}
+                            aria-label="ir para a próxima página"
+                            disabled={currentPage === totalPages || isChangingPage}
+                        >
+                            <CaretRight size={16} weight="bold" />
+                        </PaginationArrows>
+                    </PaginationContainer>
+                </BadgesFooter>
+            </MainContainer>
+        </>
     )
 }
 
