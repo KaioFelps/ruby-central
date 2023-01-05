@@ -35,7 +35,7 @@ type HomeProps = {
   badgesAmount: number;
 }
 
-export default function Home({ popularRooms, newGroups, badgesAmount, hostedFurnis, onlineUsers }: HomeProps) {
+export default function Home({ popularRooms = [], newGroups = [], badgesAmount, hostedFurnis, onlineUsers }: HomeProps) {
   return (
     <>
       <Head>

@@ -29,7 +29,7 @@ type FunctionTotalBadgesType = {
     currentPageTotal: number;
 }
 
-export default function Emblemas({badges, currentPage, total, totalPages}: EmblemasProps) {
+export default function Emblemas({badges = [], currentPage, total, totalPages}: EmblemasProps) {
     const { query, push, events } = useRouter()
     const changePagePath = !!query.query ? `/emblemas?query=${query.query}&page=` : "/emblemas?page="
     const inputRef = useRef<HTMLInputElement>(null)
