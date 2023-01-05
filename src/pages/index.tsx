@@ -7,6 +7,7 @@ import quartopadrao from "../assets/quarto-padrao.png"
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import ErrorBoundary from '../components/ErrorBoundary'
+import { DangerWarning } from '../styles/components/dangerWarning'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -54,7 +55,7 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
 
           <RoomsFlexWrapper>
             <ErrorBoundary>
-              {popularRooms.map((room: popularRoomType) => {
+              {popularRooms.length !== 0 ? popularRooms.map((room: popularRoomType) => {
 
                 return (
                   <RoomCard key={room.createdAt}>
@@ -73,7 +74,7 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
                     </RoomColumn>
                   </RoomCard>
                 )
-              })}
+              }) : <DangerWarning>Algo deu errado.</DangerWarning>}
             </ErrorBoundary>
           </RoomsFlexWrapper>
         </RoomsContainer>
@@ -83,7 +84,7 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
 
           <GroupsFlexWrapper>
             <ErrorBoundary>
-              {newGroups.map(group => {
+              {newGroups.length !== 0 ? newGroups.map(group => {
                 return (
                   <GroupCard key={group.createdAt}>
                     <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" title="Emblema do grupo" width={64} height={64} />
@@ -103,7 +104,7 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
                     </GroupColumn>
                   </GroupCard>
                 )
-              })}
+              }) : <DangerWarning>Algo deu errado.</DangerWarning>}
             </ErrorBoundary>
           </GroupsFlexWrapper>
         </GroupsContainer>
