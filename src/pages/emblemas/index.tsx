@@ -259,14 +259,22 @@ export const getServerSideProps: GetServerSideProps<any, {query?: string;}> = as
     const response = await request.json()   
 
     const statusData = await response.response
-    const badgesData = await statusData.data
+
+    if (response.success === true) {
+        const badgesData = await statusData.data
+
+        return {
+            props: {
+                badges: badgesData,
+                total: statusData.total,
+                currentPage: statusData.current_page,
+                totalPages: statusData.last_page,
+            },
+        }
+    }
+
     return {
-        props: {
-            badges: badgesData,
-            total: statusData.total,
-            currentPage: statusData.current_page,
-            totalPages: statusData.last_page,
-        },
+        props: {},
     }
 }
 

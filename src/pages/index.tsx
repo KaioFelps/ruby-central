@@ -124,7 +124,7 @@ export const getStaticProps:GetStaticProps = async () => {
     }
   })
   const roomsResponse = await roomsRequest.json()
-  const roomsData = await roomsResponse.response.data
+  const roomsData = await roomsResponse.success === true ? await roomsResponse.response.data : []
 
   let popularRooms = roomsData.map((room: any) => {
     return {
@@ -151,7 +151,7 @@ export const getStaticProps:GetStaticProps = async () => {
   })
 
   const groupsResponse = await groupsRequest.json()
-  const groupsData = await groupsResponse.response.data
+  const groupsData = await groupsResponse.success === true ? await groupsResponse.response.data : []
 
   let newGroups = groupsData.map((group: any) => {
     return {
@@ -177,15 +177,27 @@ export const getStaticProps:GetStaticProps = async () => {
   })
 
   const statisticsResponse = await statisticsRequest.json()
-  const { onlines_count, furniture_count, badges_count } = statisticsResponse.response
+  const statisticsSuccess = await statisticsResponse.success
+
+  if (statisticsSuccess === true) {
+    const { onlines_count, furniture_count, badges_count } = statisticsResponse.response
+
+    return {
+      props: {
+        popularRooms,
+        newGroups,
+        onlineUsers: onlines_count,
+        hostedFurnis: furniture_count,
+        badgesAmount: badges_count,
+      },
+      revalidate: 60 * 10 // 10 minutos
+    }
+  }
 
   return {
     props: {
       popularRooms,
       newGroups,
-      onlineUsers: onlines_count,
-      hostedFurnis: furniture_count,
-      badgesAmount: badges_count,
     },
     revalidate: 60 * 10 // 10 minutos
   }
