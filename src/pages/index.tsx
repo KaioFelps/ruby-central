@@ -125,7 +125,7 @@ export const getStaticProps:GetStaticProps = async () => {
   const roomsResponse = await roomsRequest.json()
   const roomsData = await roomsResponse.response.data
 
-  const popularRooms = roomsData.map((room: any) => {
+  let popularRooms = roomsData.map((room: any) => {
     return {
       roomName: room.name,
       roomPic: room.thumbnail,
@@ -136,6 +136,9 @@ export const getStaticProps:GetStaticProps = async () => {
     } as popularRoomType
   })
 
+  if (roomsResponse.success !== true) {
+    popularRooms = []
+  }
 
   // get latest groups datas
   const groupsRequest = await fetch("https://api.rubyhotel.city/api/groups?paginationLimit=10", {
@@ -149,7 +152,7 @@ export const getStaticProps:GetStaticProps = async () => {
   const groupsResponse = await groupsRequest.json()
   const groupsData = await groupsResponse.response.data
 
-  const newGroups = groupsData.map((group:any) => {
+  let newGroups = groupsData.map((group:any) => {
     return {
       groupName: group.name,
       createdAt: group.created_at,
@@ -158,7 +161,10 @@ export const getStaticProps:GetStaticProps = async () => {
       owner: group.owner.name,
     } as newGroupsProps
   })
-  
+
+  if (groupsResponse.success !== true) {
+    popularRooms = []
+  }
 
   // statistics
   const statisticsRequest = await fetch("https://api.rubyhotel.city/api/ruby/statistics", {
