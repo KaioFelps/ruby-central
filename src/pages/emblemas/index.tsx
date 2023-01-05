@@ -134,7 +134,7 @@ export default function Emblemas({badges, currentPage, total, totalPages}: Emble
             setIsSearching(false)
             setIsChangingPage(false)
         })
-    }, [])
+    }, [events])
 
     return (
         <MainContainer>
@@ -171,7 +171,7 @@ export default function Emblemas({badges, currentPage, total, totalPages}: Emble
 
                                         <BadgeLink href="">Clique para ver quem tem o emblema</BadgeLink>
                                     </> }
-                                    key={ badge.code + badge.title }
+                                    key={badge.code + badge.title}
                                     asChild={true}
                                 >
                                     <BadgeToolTipTrigger type="button" aria-label="ver mais informações sobre o emblema">
@@ -210,9 +210,9 @@ export default function Emblemas({badges, currentPage, total, totalPages}: Emble
 
                         {calculatedPages.map((page: number) => {
                             if(page === currentPage) {
-                                return <PaginationLink className="active" href={`${changePagePath}${page}`}>{page}</PaginationLink>
+                                return <PaginationLink key={page} className="active" href={`${changePagePath}${page}`}>{page}</PaginationLink>
                             }
-                            return <PaginationLink href={`${changePagePath}${page}`}>{page}</PaginationLink>
+                            return <PaginationLink key={page} href={`${changePagePath}${page}`}>{page}</PaginationLink>
                         })}
 
                         {/* link para a última página */}
