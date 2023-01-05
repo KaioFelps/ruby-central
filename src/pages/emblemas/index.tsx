@@ -187,7 +187,7 @@ export default function Emblemas({badges, currentPage, total, totalPages}: Emble
                                     </Tooltip>
                                 )
                             }) :
-                            <NothingFoundWarning>Nada foi encontra do</NothingFoundWarning>
+                            <NothingFoundWarning>Nada foi encontrado</NothingFoundWarning>
                         }
                     </BadgesContainer>
 

@@ -6,6 +6,7 @@ import { Summary } from '../components/Summary'
 import quartopadrao from "../assets/quarto-padrao.png"
 import Image from 'next/image'
 import { GetServerSideProps, GetStaticProps } from 'next'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -52,26 +53,28 @@ export default function Home({ popularRooms, newGroups, badgesAmount, hostedFurn
           <h3>Quartos mais populares</h3>
 
           <RoomsFlexWrapper>
-            {popularRooms.map((room: popularRoomType) => {
+            <ErrorBoundary>
+              {popularRooms.map((room: popularRoomType) => {
 
-              return (
-                <RoomCard key={room.createdAt}>
-                  <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} title="Capa do quarto" width={110} height={110} />
+                return (
+                  <RoomCard key={room.createdAt}>
+                    <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} title="Capa do quarto" width={110} height={110} />
 
-                  <RoomColumn>
-                    <RoomInfos>
-                      <strong>{room.roomName}</strong>
-                      <p>{room.visitors} {room.visitors === 1 ? "usuário" : "usuários"}</p>
-                    </RoomInfos>
+                    <RoomColumn>
+                      <RoomInfos>
+                        <strong>{room.roomName}</strong>
+                        <p>{room.visitors} {room.visitors === 1 ? "usuário" : "usuários"}</p>
+                      </RoomInfos>
 
-                    <RoomOwner>
-                      <Image src={`https://imager.rubyhotel.city/?&figure=${room.ownerVisual}&direction=3&head_direction=3&gesture=sml&size=sm&headonly=1`} alt="quarto não possui papel de fundo" title={`Rosto do usuário ${room.owner}`} width={56} height={56} unoptimized={true} />
-                      <span>{room.owner}</span>
-                    </RoomOwner>
-                  </RoomColumn>
-                </RoomCard>
-              )
-            })}
+                      <RoomOwner>
+                        <Image src={`https://imager.rubyhotel.city/?&figure=${room.ownerVisual}&direction=3&head_direction=3&gesture=sml&size=sm&headonly=1`} alt="quarto não possui papel de fundo" title={`Rosto do usuário ${room.owner}`} width={56} height={56} unoptimized={true} />
+                        <span>{room.owner}</span>
+                      </RoomOwner>
+                    </RoomColumn>
+                  </RoomCard>
+                )
+              })}
+            </ErrorBoundary>
           </RoomsFlexWrapper>
         </RoomsContainer>
 
@@ -79,27 +82,29 @@ export default function Home({ popularRooms, newGroups, badgesAmount, hostedFurn
           <h3>Últimos grupos</h3>
 
           <GroupsFlexWrapper>
-            {newGroups.map(group => {
-              return (
-                <GroupCard key={group.createdAt}>
-                  <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" title="Emblema do grupo" width={64} height={64} />
+            <ErrorBoundary>
+              {newGroups.map(group => {
+                return (
+                  <GroupCard key={group.createdAt}>
+                    <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" title="Emblema do grupo" width={64} height={64} />
 
-                  <GroupColumn>
-                    <strong>{group.groupName}</strong>
+                    <GroupColumn>
+                      <strong>{group.groupName}</strong>
 
-                    <ChipsFlexRow>
-                      <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
-                      <GroupChip>{group.owner}</GroupChip>
-                      <GroupChip>{(new Date(group.createdAt * 1000)).toLocaleString("pt-br", {
-                        month: "numeric",
-                        day: "numeric",
-                        year: "numeric",
-                      })}</GroupChip>
-                    </ChipsFlexRow>
-                  </GroupColumn>
-                </GroupCard>
-              )
-            })}
+                      <ChipsFlexRow>
+                        <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
+                        <GroupChip>{group.owner}</GroupChip>
+                        <GroupChip>{(new Date(group.createdAt * 1000)).toLocaleString("pt-br", {
+                          month: "numeric",
+                          day: "numeric",
+                          year: "numeric",
+                        })}</GroupChip>
+                      </ChipsFlexRow>
+                    </GroupColumn>
+                  </GroupCard>
+                )
+              })}
+            </ErrorBoundary>
           </GroupsFlexWrapper>
         </GroupsContainer>
       </MainContainer>
