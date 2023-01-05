@@ -17,7 +17,7 @@ export const TooltipArrowChild = styled("div", {
     width: 15,
     height: 15,
     borderStyle: "solid",
-    borderColor: "rgba(0, 0, 0, 0.15)",
+    borderColor: "$gray-400",
     borderWidth: "0 1px 1px 0",
     background: "$white",
     filter: "drop-shadow(1px 1px 0 #0000000d)",
@@ -28,7 +28,7 @@ export const TooltipArrowChild = styled("div", {
 export const TooltipContent = styled(PrimitiveTooltip.Content, {
     padding: 12,
     background: "$white",
-    border: "1px solid rgba(0, 0, 0, 0.15)",
+    border: "1px solid $gray-400",
     borderRadius: 8,
     boxShadow: "0px 2px 0px rgba(0, 0, 0, 0.05)",
 

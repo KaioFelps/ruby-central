@@ -34,12 +34,12 @@ export function Header() {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink href={"mobis"} aria-label="Mobis">
+                            <NavLink href={"/mobis"} aria-label="Mobis">
                                 <Armchair size={32} weight={asPath === "/mobis" ? "fill" : "regular"} />
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink href={"usuario"} aria-label="Usuários">
+                            <NavLink href={"/usuario"} aria-label="Usuários">
                                 <User size={32} weight={asPath === "/usuario" ? "fill" : "regular"} />
                             </NavLink>
                         </li>
