@@ -154,7 +154,7 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
                 <meta property="og:site_name" content="Ruby Center" />
 
                 {/* twitter card */}
-                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:card" content="summary_large_image" />
                 <meta property="twitter:image" content="/twitter-emblemas.png" />
             </Head>
             <MainContainer>

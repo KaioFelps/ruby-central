@@ -56,7 +56,7 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
         <meta property="og:site_name" content="Ruby Center" />
 
         {/* twitter card */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:image" content="/twitter-home.png" />
       </Head>
       <MainContainer>
