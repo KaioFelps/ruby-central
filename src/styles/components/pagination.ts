@@ -56,22 +56,24 @@ export const PaginationLink = styled(NavLink, {
 })
 
 export const PaginationArrows = styled(StyledButton, {
-    width: 39,
-    height: 39,
-    padding: 0,
-    lineHeight: 0,
-    borderRadius: 8,
-    boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.15)",
-    color: "$black",
-    background: "$gray-200",
+    "&.MuiButtonBase-root": {
+        width: 39,
+        height: 39,
+        padding: 0,
+        lineHeight: 0,
+        borderRadius: 8,
+        boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.15)",
+        color: "$black",
+        background: "$gray-200",
 
-    "&:not(:disabled):hover": {
-        background: "$blue-500",
-        color: "$white",
-    },
+        "&:not(:disabled):hover": {
+            background: "$blue-500",
+            color: "$white",
+        },
 
-    "&:not(:disabled) .MuiTouchRipple-ripple": {
-        color: "$blue-400"
+        "&:not(:disabled) .MuiTouchRipple-ripple": {
+            color: "$blue-400"
+        }
     }
 })
 
