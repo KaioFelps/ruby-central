@@ -139,7 +139,23 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
             <Head>
                 <title>Scanner de emblemas • Ruby Center Api</title>
                 <meta name="description" content="Confira todos os emblemas hospedados no Ruby Hotel." />
-                <link rel='canonical' href='/emblemas' />
+                <link rel='canonical' href='https://ruby-central.vercel.app/emblemas' />
+
+                <meta property="og:title" content="Scanner de emblemas • Ruby Center Api" />
+                <meta name="twitter:title" content="Scanner de emblemas • Ruby Center Api" />
+
+                <meta name="description" content="Confira todos os emblemas hospedados no Ruby Hotel." />
+                <meta property="og:description" content="Confira todos os emblemas hospedados no Ruby Hotel." />
+                <meta name="twitter:description" content="Confira todos os emblemas hospedados no Ruby Hotel." />
+
+                <meta property="og:type" content="fan-site" />
+                <meta property="og:url" content="https://ruby-central.vercel.app/emblemas" />
+                <meta property="og:image" content="/facebook-emblemas.png" />
+                <meta property="og:site_name" content="Ruby Center" />
+
+                {/* twitter card */}
+                <meta name="twitter:card" content="summary" />
+                <meta property="twitter:image" content="/twitter-emblemas.png" />
             </Head>
             <MainContainer>
                 <BadgesHeader>

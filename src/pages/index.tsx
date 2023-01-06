@@ -41,8 +41,23 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
     <>
       <Head>
         <title>Ruby Center Api</title>
+        <link rel='canonical' href='https://ruby-central.vercel.app/' />
+
+        <meta property="og:title" content="Ruby Center Api" />
+        <meta name="twitter:title" content="Ruby Center Api" />
+
         <meta name="description" content="Encontre tudo sobre o Ruby Hotel, de emblemas e mobis à informações de usuários!" />
-        <link rel='canonical' href='/' />
+        <meta property="og:description" content="Encontre tudo sobre o Ruby Hotel, de emblemas e mobis à informações de usuários!" />
+        <meta name="twitter:description" content="Encontre tudo sobre o Ruby Hotel, de emblemas e mobis à informações de usuários!" />
+
+        <meta property="og:type" content="fan-site" />
+        <meta property="og:url" content="https://ruby-central.vercel.app/" />
+        <meta property="og:image" content="/facebook-home.png" />
+        <meta property="og:site_name" content="Ruby Center" />
+
+        {/* twitter card */}
+        <meta name="twitter:card" content="summary" />
+        <meta property="twitter:image" content="/twitter-home.png" />
       </Head>
       <MainContainer>
         <Hero>
