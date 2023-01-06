@@ -25,10 +25,26 @@ function MobileNavigationContent() {
                 </DialogClose>
 
                 <MobileNavWrapper>
-                    <li><NavLink href={"/"}><House size={32} /> Início</NavLink></li>
-                    <li><NavLink exact={false} href={"/emblemas"}><ImageSquare size={32} /> Emblemas</NavLink></li>
-                    <li><NavLink href={"/mobis"}><Armchair size={32} /> Mobis</NavLink></li>
-                    <li><NavLink href={"/usuario"}><User size={32} /> Usuários</NavLink></li>
+                    <li>
+                        <DialogClose asChild isLink>
+                            <NavLink href={"/"}><House size={32} /> Início</NavLink>
+                        </DialogClose>
+                    </li>
+                    <li>
+                        <DialogClose asChild isLink>
+                            <NavLink exact={false} href={"/emblemas"}><ImageSquare size={32} /> Emblemas</NavLink>
+                        </DialogClose>
+                    </li>
+                    <li>
+                        <DialogClose asChild isLink>
+                            <NavLink href={"/mobis"}><Armchair size={32} /> Mobis</NavLink>
+                        </DialogClose>
+                    </li>
+                    <li>
+                        <DialogClose asChild isLink>
+                            <NavLink href={"/usuario"}><User size={32} /> Usuários</NavLink>
+                        </DialogClose>
+                    </li>
                 </MobileNavWrapper>
             </DialogContent>
         </DialogPortal>

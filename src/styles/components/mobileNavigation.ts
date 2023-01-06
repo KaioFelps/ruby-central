@@ -21,6 +21,12 @@ const swipeOff = keyframes({
     }
 })
 
+// types
+
+type CloseButton = {
+    asChild: boolean;
+}
+
 // styles
 
 export const DialogRoot = PrimitiveDialog.Root
@@ -72,6 +78,23 @@ export const DialogClose = styled(PrimitiveDialog.Close, {
     borderRadius: 999,
     color: "$blue-500",
     background: "$gray-300",
+    cursor: "default",
+
+    variants: {
+        isLink: {
+            true: {
+                justifyContent: "unset",
+                alignSelf: "unset",
+                alignItems: "unset",
+                background: "unset",
+                color: "unset",
+                cursor: "pointer",
+                padding: "unset",
+                display: "unset",
+                borderRadius: "unset",
+            }
+        }
+    }
 })
 
 export const MobileNavWrapper = styled("ul", {

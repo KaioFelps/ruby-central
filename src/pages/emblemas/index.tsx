@@ -1,9 +1,6 @@
 import { Binoculars, CaretLeft, CaretRight } from "phosphor-react";
-import { StyledLabel } from "../../styles/global";
 import { Badge, BadgeLink, BadgeParagraph, BadgesContainer, BadgesFooter, BadgesHeader, BadgeToolTipTrigger, Form, MainContainer, NothingFoundWarning, ResultWrapper } from "../../styles/pages/emblemas";
-import { StyledButton } from "../../styles/global";
-import "primereact/resources/themes/bootstrap4-light-blue/theme.css"
-import "primereact/resources/primereact.min.css"
+import { StyledButton, StyledLabel } from "../../styles/styledComponents";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
@@ -53,12 +50,12 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
 
     function handleFormSubmit(e:ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
-        setIsSearching(true)
         const inputQuery = inputRef.current!.value
-
+        
         if (inputQuery === query.query || (!query.query && inputQuery === "")) {
             alert("Você já se enconstra nessa pesquisa.")
         } else {
+            setIsSearching(true)
             inputQuery === "" ? push("") : push(`/emblemas?query=${inputQuery}`)
         }
     }
@@ -156,7 +153,8 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
                         <StyledButton
                             aria-label="Realizar busca de emblemas com as informações fornecidas."
                             type="submit"
-                            loading={isSearching}
+                            focusRipple
+                            disabled={isSearching}
                         >
                             Buscar
                         </StyledButton>
@@ -201,6 +199,7 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
                             onClick={paginationControls.prev}
                             aria-label="ir para a página anterior"
                             disabled={currentPage <= 1 || isChangingPage}
+                            focusRipple
                         >
                             <CaretLeft size={16} weight="bold" />
                         </PaginationArrows>
@@ -234,6 +233,7 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
                             onClick={paginationControls.next}
                             aria-label="ir para a próxima página"
                             disabled={currentPage === totalPages || isChangingPage}
+                            focusRipple
                         >
                             <CaretRight size={16} weight="bold" />
                         </PaginationArrows>

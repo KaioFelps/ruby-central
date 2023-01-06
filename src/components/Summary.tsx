@@ -36,7 +36,7 @@ export function Summary({ badgesAmount, hostedFurnis, onlineUsers }: SummaryProp
                         <h2>{onlineUsers}</h2>
                     </InfosCol>
                 </SummaryRow>
-                <SeeMoreAnchor href="/users">
+                <SeeMoreAnchor href="/usuario">
                     Ver mais <ArrowSquareOut size={16} weight="bold" />
                 </SeeMoreAnchor>
             </SummaryCard>

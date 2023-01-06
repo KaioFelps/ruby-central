@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.3",
     "@next/font": "13.1.1",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.2",
@@ -19,7 +22,6 @@
     "eslint-config-next": "^12.0.4",
     "next": "^13.1.1",
     "phosphor-react": "^1.4.1",
-    "primereact": "^8.7.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sharp": "^0.31.3",
