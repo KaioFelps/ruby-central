@@ -14,16 +14,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const handleRouteChangeStart = useCallback(() => {
     setIsLoading(true)
-  }, [ events ])
+  }, [])
 
   const handleRouteChangeComplete = useCallback(() => {
     setIsLoading(false)
-  }, [ events ])
+  }, [])
 
   useEffect(() => {
     events.on("routeChangeStart", handleRouteChangeStart)
     events.on("routeChangeComplete", handleRouteChangeComplete)
-  }, [events])
+  }, [events, handleRouteChangeComplete, handleRouteChangeStart])
 
   return (
     <>
