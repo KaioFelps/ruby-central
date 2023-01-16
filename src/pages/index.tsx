@@ -42,6 +42,7 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
       <Head>
         <title>Ruby Center Api</title>
         <link rel='canonical' href='https://ruby-central.vercel.app/' />
+        <meta name="theme-color" content="#0080ff" />
 
         <meta property="og:title" content="Ruby Center Api" />
         <meta name="twitter:title" content="Ruby Center Api" />

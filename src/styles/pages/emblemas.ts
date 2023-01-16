@@ -64,10 +64,11 @@ export const Badge = styled(Image, {
     background: "$white",
     boxShadow: "inset 0 0 0 2px rgba(0, 0, 0, 0.15)",
     borderRadius: 6,
+    objectFit: "none",
+    imageRendering: "pixelated",
 
     "@sm": {
         width: "-webkit-fill-available",
-        objectFit: "none",
     },
 })
 

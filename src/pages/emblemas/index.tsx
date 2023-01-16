@@ -138,8 +138,8 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
         <>
             <Head>
                 <title>Scanner de emblemas • Ruby Center Api</title>
-                <meta name="description" content="Confira todos os emblemas hospedados no Ruby Hotel." />
                 <link rel='canonical' href='https://ruby-central.vercel.app/emblemas' />
+                <meta name="theme-color" content="#0080ff" />
 
                 <meta property="og:title" content="Scanner de emblemas • Ruby Center Api" />
                 <meta name="twitter:title" content="Scanner de emblemas • Ruby Center Api" />
