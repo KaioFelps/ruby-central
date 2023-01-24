@@ -33,7 +33,12 @@ export const StyledButton = styled(ButtonBase, {
         justifyContent: "center",
         transition: "outline 150ms",
 
+        "&:hover": {
+            filter: "brightness(0.95)",
+        },
+
         "&:focus": {
+            filter: "brightness(1)",
             boxShadow: "none",
             outline: "4px solid $blue-100",
         },

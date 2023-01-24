@@ -193,7 +193,7 @@ export default function Emblema({error, code: BadgeCode = "", currentPage = 1, d
                     </UsersHeader>
 
                     <UsersContainer>
-                        {users.map(user => (
+                        { users.length < 0 ? users.map(user => (
                             <UserCard key={user.name}>
                                 <Image src={`https://imager.rubyhotel.city/?&figure=${user.figure}&direction=3&head_direction=3&size=sm&headonly=1`} alt="" width={64} height={110} />
                                 <UserColumn>
@@ -201,7 +201,7 @@ export default function Emblema({error, code: BadgeCode = "", currentPage = 1, d
                                     <NavLink href={"/"}>Ver perfil</NavLink>
                                 </UserColumn>
                             </UserCard>
-                        ))}
+                        )) : <NothingFoundWarning>Nenhum usuário encontrado.</NothingFoundWarning>}
                     </UsersContainer>
                     </>
                 }
