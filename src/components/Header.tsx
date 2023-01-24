@@ -17,7 +17,7 @@ export function Header() {
                 {/* logo (Changes due to screensize) */}
                 <picture>
                     <source media="(max-width: 375px)" srcSet={shortLogo.src} width={shortLogo.width} height={shortLogo.height} />
-                    <Image src={logo} alt="Ruby Center" title="Ruby Center" placeholder="blur" quality={100} unoptimized={true} loading="eager" />
+                    <Image src={logo} alt="Ruby Center" title="Ruby Center" placeholder="blur" quality={100} unoptimized={true} loading="eager" style={{imageRendering: "pixelated"}} />
                 </picture>
 
                 {/* desktop navigation menu */}

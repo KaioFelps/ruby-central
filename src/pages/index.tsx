@@ -8,6 +8,8 @@ import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { DangerWarning } from '../styles/components/dangerWarning'
+import { Suspense } from 'react'
+import LoadingSuspense from '../components/LoadingSuspense'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -63,7 +65,9 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
       <MainContainer>
         <Hero>
           <h1>Overview do Ruby Hotel</h1>
-          <Summary badgesAmount={badgesAmount} hostedFurnis={hostedFurnis} onlineUsers={onlineUsers} />
+          <Suspense fallback={<LoadingSuspense />}>
+            <Summary badgesAmount={badgesAmount} hostedFurnis={hostedFurnis} onlineUsers={onlineUsers} />
+          </Suspense>
         </Hero>
 
         <RoomsContainer>
@@ -71,26 +75,28 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
 
           <RoomsFlexWrapper>
             <ErrorBoundary>
-              {popularRooms.length !== 0 ? popularRooms.map((room: popularRoomType) => {
+              <Suspense fallback={<LoadingSuspense />}>
+                {popularRooms.length !== 0 ? popularRooms.map((room: popularRoomType) => {
 
-                return (
-                  <RoomCard key={room.createdAt}>
-                    <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} title="Capa do quarto" width={110} height={110} />
+                  return (
+                    <RoomCard key={room.createdAt}>
+                      <Image src={room.roomPic.includes("/default1.png") ? quartopadrao : `https://rubyhotel.city/${room.roomPic}`} alt={room.roomPic.includes("default1.png") ? "quarto não possui papel de fundo" : ""} title="Capa do quarto" width={110} height={110} />
 
-                    <RoomColumn>
-                      <RoomInfos>
-                        <strong>{room.roomName}</strong>
-                        <p>{room.visitors} {room.visitors === 1 ? "usuário" : "usuários"}</p>
-                      </RoomInfos>
+                      <RoomColumn>
+                        <RoomInfos>
+                          <strong>{room.roomName}</strong>
+                          <p>{room.visitors} {room.visitors === 1 ? "usuário" : "usuários"}</p>
+                        </RoomInfos>
 
-                      <RoomOwner>
-                        <Image src={`https://imager.rubyhotel.city/?&figure=${room.ownerVisual}&direction=3&head_direction=3&gesture=sml&size=sm&headonly=1`} alt="quarto não possui papel de fundo" title={`Rosto do usuário ${room.owner}`} width={56} height={56} unoptimized={true} />
-                        <span>{room.owner}</span>
-                      </RoomOwner>
-                    </RoomColumn>
-                  </RoomCard>
-                )
-              }) : <DangerWarning>Algo deu errado.</DangerWarning>}
+                        <RoomOwner>
+                          <Image src={`https://imager.rubyhotel.city/?&figure=${room.ownerVisual}&direction=3&head_direction=3&gesture=sml&size=sm&headonly=1`} alt="quarto não possui papel de fundo" title={`Rosto do usuário ${room.owner}`} width={56} height={56} unoptimized={true} />
+                          <span>{room.owner}</span>
+                        </RoomOwner>
+                      </RoomColumn>
+                    </RoomCard>
+                  )
+                }) : <DangerWarning>Algo deu errado.</DangerWarning>}
+              </Suspense>
             </ErrorBoundary>
           </RoomsFlexWrapper>
         </RoomsContainer>
@@ -100,27 +106,29 @@ export default function Home({ popularRooms = [], newGroups = [], badgesAmount =
 
           <GroupsFlexWrapper>
             <ErrorBoundary>
-              {newGroups.length !== 0 ? newGroups.map(group => {
-                return (
-                  <GroupCard key={group.createdAt}>
-                    <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" title="Emblema do grupo" width={64} height={64} />
+              <Suspense fallback={<LoadingSuspense />}>
+                {newGroups.length !== 0 ? newGroups.map(group => {
+                  return (
+                    <GroupCard key={group.createdAt}>
+                      <Image src={`https://rubyhotel.city/groups/badge/${group.groupPic}`} alt="" title="Emblema do grupo" width={64} height={64} />
 
-                    <GroupColumn>
-                      <strong>{group.groupName}</strong>
+                      <GroupColumn>
+                        <strong>{group.groupName}</strong>
 
-                      <ChipsFlexRow>
-                        <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
-                        <GroupChip>{group.owner}</GroupChip>
-                        <GroupChip>{(new Date(group.createdAt * 1000)).toLocaleString("pt-br", {
-                          month: "numeric",
-                          day: "numeric",
-                          year: "numeric",
-                        })}</GroupChip>
-                      </ChipsFlexRow>
-                    </GroupColumn>
-                  </GroupCard>
-                )
-              }) : <DangerWarning>Algo deu errado.</DangerWarning>}
+                        <ChipsFlexRow>
+                          <GroupChip>{group.membersAmount === 1 ? `${group.membersAmount} membros` : `${group.membersAmount} membros`}</GroupChip>
+                          <GroupChip>{group.owner}</GroupChip>
+                          <GroupChip>{(new Date(group.createdAt * 1000)).toLocaleString("pt-br", {
+                            month: "numeric",
+                            day: "numeric",
+                            year: "numeric",
+                          })}</GroupChip>
+                        </ChipsFlexRow>
+                      </GroupColumn>
+                    </GroupCard>
+                  )
+                }) : <DangerWarning>Algo deu errado.</DangerWarning>}
+              </Suspense>
             </ErrorBoundary>
           </GroupsFlexWrapper>
         </GroupsContainer>

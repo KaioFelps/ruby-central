@@ -52,6 +52,7 @@ export const PaginationLink = styled(NavLink, {
         boxShadow: "inset 0 0 0 1px var(--color-blue-500)",
         background: "$blue-400",
         color: "$white",
+        cursor: "default",
     },
 })
 

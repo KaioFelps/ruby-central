@@ -1,4 +1,3 @@
-import { wrap } from "module";
 import Image from "next/image";
 import { styled } from "..";
 import NavLink from "../../components/NavLink";

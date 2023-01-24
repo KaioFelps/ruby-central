@@ -1,6 +1,18 @@
 import { styled } from ".";
 import ButtonBase from "@mui/material/ButtonBase";
 import LinearProgress from "@mui/material/LinearProgress"
+import { ButtonGroup } from "@mui/material";
+
+export const StyledButtonGroup = styled(ButtonGroup, {
+    "&.MuiButtonGroup-root": {
+        boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.1)",
+        borderRadius: 8,
+
+        "&:has(button:focus)": {
+            boxShadow: "none",
+        },
+    }
+})
 
 export const StyledButton = styled(ButtonBase, {
     "&.MuiButtonBase-root": {
@@ -23,12 +35,35 @@ export const StyledButton = styled(ButtonBase, {
 
         "&:focus": {
             boxShadow: "none",
-            outline: "5px solid $blue-100",
+            outline: "4px solid $blue-100",
         },
 
         "&:disabled": {
             transition: "filter 150ms",
             filter: "opacity(0.5)",
+        }
+    },
+
+    ".MuiButtonGroup-root &.MuiButtonBase-root": {
+        padding: 14,
+        borderRadius: 0,
+        boxShadow: "none",
+        outlineColor: "$blue-100",
+
+        "&:first-child": {
+            borderRadius: "8px 0 0 8px",
+        },
+        
+        "&:last-child": {
+            borderRadius: "0 8px 8px 0",
+        },
+
+        "&:not(:last-child)": {
+            boxShadow: "inset -1px 0 0 0 rgba(0, 0, 0, 0.15)",
+        },
+
+        "&:focus": {
+            zIndex: 1,
         }
     }
 })
@@ -63,7 +98,7 @@ export const StyledLabel = styled("label", {
 
     "&:has(input:focus)": {
         boxShadow: "none",
-        outline: "5px solid $blue-100",
+        outline: "4px solid $blue-100",
     },
 
     "@sm": {

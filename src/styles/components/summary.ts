@@ -33,6 +33,10 @@ export const SummaryRow = styled("div", {
     display: "flex",
     gap: "1rem",
     padding: 24,
+
+    img: {
+        imageRendering: "pixelated",
+    }
 })
 
 export const InfosCol = styled("div", {
@@ -54,6 +58,7 @@ export const InfosCol = styled("div", {
 export const SeeMoreAnchor = styled(NavLink, {
     background: "$gray-100",
     boxShadow: "inset 0 1px 0 0 rgba(0, 0, 0, 0.05)",
+    outlineOffset: 0,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -75,6 +80,7 @@ export const SeeMoreAnchor = styled(NavLink, {
     },
 
     "&:focus": {
-        outline: "solid 3px $blue-100",
+        outline: "solid 4px $blue-100",
+        boxShadow: "none",
     }
 })

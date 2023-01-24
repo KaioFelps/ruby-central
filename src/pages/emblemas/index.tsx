@@ -21,11 +21,6 @@ type EmblemasProps = {
     totalPages: number;
 }
 
-type FunctionTotalBadgesType = {
-    page: number;
-    currentPageTotal: number;
-}
-
 export default function Emblemas({badges = [], currentPage, total, totalPages}: EmblemasProps) {
     const { query, push, events } = useRouter()
     const changePagePath = !!query.query ? `/emblemas?query=${query.query}&page=` : "/emblemas?page="
@@ -97,21 +92,49 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
 
     const paginationControls = {
         prev() {
-            if(currentPage <= 1) {
-                push(`${changePagePath}1`)
-            }
-
             setIsChangingPage(true)
-            push(`${changePagePath}${currentPage - 1}`)
+            if(currentPage <= 1) {
+                // push(`${changePagePath}1`)
+                push({
+                    pathname: "/emblemas",
+                    query: {
+                        query: query.query || null,
+                        page: 1,
+                    }
+                })
+            }
+            
+            // push(`${changePagePath}${currentPage - 1}`)
+            push({
+                pathname: "/emblemas",
+                query: {
+                    query: query.query || null,
+                    page: (currentPage - 1),
+                }
+            })
         },
 
         next() {
+            setIsChangingPage(true)
             if(currentPage === totalPages) {
-                push(`${changePagePath}${currentPage + 1}`)
+                // push(`${changePagePath}${currentPage + 1}`)
+                push({
+                    pathname: "/emblemas",
+                    query: {
+                        query: query.query || null,
+                        page: 1,
+                    }
+                })
             }
 
-            setIsChangingPage(true)
-            push(`${changePagePath}${currentPage + 1}`)
+            // push(`${changePagePath}${currentPage + 1}`)
+            push({
+                pathname: "/emblemas",
+                query: {
+                    query: query.query || null,
+                    page: (currentPage + 1),
+                }
+            })
         }
     }
 
@@ -190,7 +213,7 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
                                             <BadgeParagraph><strong>Descrição:</strong> {badge.description}</BadgeParagraph>
                                             <BadgeParagraph><strong>Código:</strong> {badge.code}</BadgeParagraph>
 
-                                            <BadgeLink href="">Clique para ver quem tem o emblema</BadgeLink>
+                                            <BadgeLink href={`/emblemas/${badge.code}`}>Clique para ver quem tem o emblema</BadgeLink>
                                         </> }
                                         key={badge.code + badge.title}
                                         asChild={true}
@@ -232,8 +255,9 @@ export default function Emblemas({badges = [], currentPage, total, totalPages}: 
 
                             {calculatedPages.map((page: number) => {
                                 if(page === currentPage) {
-                                    return <PaginationLink key={page} className="active" href={`${changePagePath}${page}`}>{page}</PaginationLink>
+                                    return <PaginationLink key={page} className="active" as="span">{page}</PaginationLink>
                                 }
+                                
                                 return <PaginationLink key={page} href={`${changePagePath}${page}`}>{page}</PaginationLink>
                             })}
 
