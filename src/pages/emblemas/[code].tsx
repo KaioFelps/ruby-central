@@ -149,7 +149,7 @@ export default function Emblema({error, code: BadgeCode = "", currentPage = 1, d
                 </BadgeHeader>
 
                 {!!error ?
-                    <NothingFoundWarning>
+                    <NothingFoundWarning style={{textAlign: "center", padding: "2rem",}}>
                         O emblema não foi encontrado ou não existe...
                     </NothingFoundWarning>
                     :
