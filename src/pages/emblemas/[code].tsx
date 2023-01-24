@@ -6,6 +6,7 @@ import { Binoculars, CaretLeft, CaretRight } from "phosphor-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import NavLink from "../../components/NavLink";
 import { api } from "../../lib/api";
+import { NothingFoundWarning } from "../../styles/pages/emblemas";
 import { BadgeContainer, BadgeHeader, BadgeInfos, BadgeMainContainer, QueryForm, UserCard, UserColumn, UsersContainer, UsersHeader } from "../../styles/pages/emblemaUnico";
 import { StyledButton, StyledButtonGroup, StyledLabel } from "../../styles/styledComponents";
 
@@ -22,9 +23,11 @@ type BadgesInfosPropsType = {
     currentPage: number;
     lastPage: number;
     perPage: number;
+    error?: boolean;
+    errorMessage?: boolean;
 }
 
-export default function Emblema({code: BadgeCode, currentPage, desc: BadgeDesc, lastPage, perPage, title: BadgeTitle, users}: BadgesInfosPropsType) {
+export default function Emblema({error, code: BadgeCode = "", currentPage = 1, desc: BadgeDesc, lastPage = 1, perPage, title: BadgeTitle, users}: BadgesInfosPropsType) {
     const META_TITLE = `Emblema: ${BadgeCode} • Ruby Info Api`
     const META_DESC = `Cheque quem possui o emblema ${BadgeCode} no Ruby Hotel, um Habbo Pirata`
     const META_CANONICAL = `https://ruby-central.vercel.app/emblemas/${BadgeCode}`
@@ -145,55 +148,63 @@ export default function Emblema({code: BadgeCode, currentPage, desc: BadgeDesc, 
                     </QueryForm>
                 </BadgeHeader>
 
-                <BadgeContainer>
-                    <Image src={`https://rubyhotel.city/apifiles/badges/${BadgeCode}`} alt="" width={40} height={40} />
+                {!!error ?
+                    <NothingFoundWarning>
+                        O emblema não foi encontrado ou não existe...
+                    </NothingFoundWarning>
+                    :
+                    <>
+                    <BadgeContainer>
+                        <Image src={`https://rubyhotel.city/apifiles/badges/${BadgeCode}`} alt="" width={40} height={40} />
 
-                    <BadgeInfos>
-                        <p><strong>Título:</strong> {BadgeTitle}</p>
-                        <p><strong>Descrição:</strong> {BadgeDesc}</p>
-                        <p><strong>Código:</strong> {BadgeCode}</p>
-                    </BadgeInfos>
-                </BadgeContainer>
+                        <BadgeInfos>
+                            <p><strong>Título:</strong> {BadgeTitle}</p>
+                            <p><strong>Descrição:</strong> {BadgeDesc}</p>
+                            <p><strong>Código:</strong> {BadgeCode}</p>
+                        </BadgeInfos>
+                    </BadgeContainer>
 
-                <UsersHeader>
-                    <h2>Usuários</h2>
+                    <UsersHeader>
+                            <h2>Usuários</h2>
 
-                    <StyledButtonGroup>
+                            <StyledButtonGroup>
 
-                        <StyledButton
-                            aria-label="ir para a página anterior de usuários que possuem o emblema atual"
-                            title="Página anterior"
-                            focusRipple
-                            onClick={paginationControllers.prev}
-                            disabled={isChangingPage || currentPage === 1}
-                        >
-                            <CaretLeft weight="bold" size={16} color="white" />
-                        </StyledButton>
+                                <StyledButton
+                                    aria-label="ir para a página anterior de usuários que possuem o emblema atual"
+                                    title="Página anterior"
+                                    focusRipple
+                                    onClick={paginationControllers.prev}
+                                    disabled={isChangingPage || currentPage === 1}
+                                >
+                                    <CaretLeft weight="bold" size={16} color="white" />
+                                </StyledButton>
 
-                        <StyledButton
-                            aria-label="ir para a próxima página de usuários que possuem o emblema atual"
-                            title="Próxima página"
-                            focusRipple
-                            onClick={paginationControllers.next}
-                            disabled={isChangingPage || currentPage === lastPage}
-                        >
-                            <CaretRight weight="bold" size={16} color="white" />
-                        </StyledButton>
+                                <StyledButton
+                                    aria-label="ir para a próxima página de usuários que possuem o emblema atual"
+                                    title="Próxima página"
+                                    focusRipple
+                                    onClick={paginationControllers.next}
+                                    disabled={isChangingPage || currentPage === lastPage}
+                                >
+                                    <CaretRight weight="bold" size={16} color="white" />
+                                </StyledButton>
 
-                    </StyledButtonGroup>
-                </UsersHeader>
+                            </StyledButtonGroup>
+                    </UsersHeader>
 
-                <UsersContainer>
-                    {users.map(user => (
-                        <UserCard key={user.name}>
-                            <Image src={`https://imager.rubyhotel.city/?&figure=${user.figure}&direction=3&head_direction=3&size=sm&headonly=1`} alt="" width={64} height={110} />
-                            <UserColumn>
-                                <strong>{user.name}</strong>
-                                <NavLink href={"/"}>Ver perfil</NavLink>
-                            </UserColumn>
-                        </UserCard>
-                    ))}
-                </UsersContainer>
+                    <UsersContainer>
+                        {users.map(user => (
+                            <UserCard key={user.name}>
+                                <Image src={`https://imager.rubyhotel.city/?&figure=${user.figure}&direction=3&head_direction=3&size=sm&headonly=1`} alt="" width={64} height={110} />
+                                <UserColumn>
+                                    <strong>{user.name}</strong>
+                                    <NavLink href={"/"}>Ver perfil</NavLink>
+                                </UserColumn>
+                            </UserCard>
+                        ))}
+                    </UsersContainer>
+                    </>
+                }
             </BadgeMainContainer>
         </>
     )
@@ -203,6 +214,7 @@ export const getServerSideProps: GetServerSideProps<any, {code: string;}> = asyn
     if(!params!.code) {
         return {
             props: {
+                error: true,
                 errorMessage: "No badge code provided.",
             }
         }
@@ -225,9 +237,12 @@ export const getServerSideProps: GetServerSideProps<any, {code: string;}> = asyn
     const status = await request.data
     const data = await request.data.response
 
-    if(!status === true) return {
-        props: {
-            errorMessage: "Something went wrong during data fetch.",
+    if(!!status.message || status.httpCode !== 200) {
+        return {
+            props: {
+                error: true,
+                errorMessage: "Something went wrong during data fetch.",
+            }
         }
     }
 
